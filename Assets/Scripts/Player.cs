@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 forceDirection = new Vector3(transform.forward.x * 20, 3f, transform.forward.z * 20);
         if (throwingBall && (Time.time - timeAnimationStarted) > ANIMATION_THROW_DURATION)
         {
             throwingBall = false;
@@ -77,7 +76,14 @@ public class Player : MonoBehaviour
     private void ReleaseBall()
     {
         GameObject newBall = Instantiate(pfBall, /*ballInHand.transform.position*/ballReleasePosition.transform.position, Quaternion.identity);
-        Vector3 forceDirection = new Vector3(transform.forward.x * 240, 40f, transform.forward.z * 240) * shootingPower;
+        float angle = Camera.main.transform.localEulerAngles.x;     // 90 = looking down  270 = looking up
+        if (angle < 180)
+        {
+            angle += 360;
+        }
+        angle = Mathf.Abs(430 - angle);        // approx. beteen 0 and 100
+        
+        Vector3 forceDirection = new Vector3(transform.forward.x, angle * 0.005f, transform.forward.z) * 200 * shootingPower;
         Debug.DrawLine(transform.position, transform.position + forceDirection, Color.green, 4, false);
         newBall.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.Impulse);
         timeLeftDelayPickupBall = DELAY_PICKUP_BALL;

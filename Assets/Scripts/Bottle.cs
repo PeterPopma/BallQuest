@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Bottle : MonoBehaviour
 {
-    bool hasFallen;
+    [SerializeField] Room2 room2;
+
+    bool hasFallen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class Bottle : MonoBehaviour
         if ((collision.gameObject.GetComponent<Ball>()!=null || collision.gameObject.GetComponent<Bottle>() != null) && !hasFallen)
         {
             hasFallen = true;
-            Game.Instance.IncreaseBottlesFallen();
+            room2.IncreaseBottlesFallen();
         }
     }
 }
