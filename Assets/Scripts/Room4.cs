@@ -24,7 +24,12 @@ public class Room4 : MonoBehaviour
         balloonsDestroyed++;
         if (balloonsDestroyed == 4)
         {
-            gate.SetActive(false);
+            OpenGate();
         }
+    }
+    public void OpenGate()
+    {
+        gate.SetActive(false);
+        Game.Instance.PlayOpenGateSound();
     }
 }

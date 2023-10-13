@@ -9,10 +9,12 @@ public class Balloon : MonoBehaviour
     const float circleRadius = 4;
     Vector3 startPosition;
     float angle;
+    AudioSource soundExplosion;
 
     // Start is called before the first frame update
     void Start()
     {
+        soundExplosion = GameObject.Find("/Sound/Explosion").GetComponent<AudioSource>();
         startPosition = transform.position;
         angle = Random.value * Mathf.PI * 2;
     }
@@ -28,6 +30,7 @@ public class Balloon : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Ball>() != null)
         {
+            soundExplosion.Play();
             room4.IncreaseBalloonsDestroyed();
             Instantiate(vfxExplosion, transform.position, Quaternion.identity);
             Destroy(gameObject);

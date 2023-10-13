@@ -12,7 +12,7 @@ public class Room3 : MonoBehaviour
     Vector3 keyPosition = new Vector3(-0.600002289f, 2.51866961f, 3.25999999f);
     Quaternion keyRotation = new Quaternion(0.0126004936f, 0.706994534f, 0.0126004936f, -0.706994534f);
     float moveKeyValue;
-
+ 
     public void LowerSwitch()
     {
         lever.transform.localRotation = Quaternion.Euler(45, 0, 90);
@@ -37,12 +37,12 @@ public class Room3 : MonoBehaviour
     public void OpenGate()
     {
         gate.SetActive(false);
+        Game.Instance.PlayOpenGateSound();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame

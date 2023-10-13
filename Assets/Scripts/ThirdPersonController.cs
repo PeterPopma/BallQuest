@@ -14,6 +14,8 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        private bool movementDisabled;
+        
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -122,6 +124,7 @@ namespace StarterAssets
             }
         }
 
+        public bool MovementDisabled { get => movementDisabled; set => movementDisabled = value; }
 
         private void Awake()
         {
@@ -155,6 +158,11 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
+
+            if (movementDisabled)
+            {
+                return;
+            }
 
             JumpAndGravity();
             GroundedCheck();

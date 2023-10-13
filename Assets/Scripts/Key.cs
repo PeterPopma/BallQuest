@@ -7,11 +7,12 @@ public class Key : MonoBehaviour
     [SerializeField] Room3 room3;
     float timeLeftKeyDropped;
     bool openedGate;
-    
+    AudioSource soundKeyFall;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        soundKeyFall = GameObject.Find("/Sound/KeyFall").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,8 +39,14 @@ public class Key : MonoBehaviour
 
         if (collision.gameObject.GetComponent<Lock>() != null)
         {
+            soundKeyFall.Play();
             openedGate = true;
             room3.OpenGate();
+        }
+
+        if (collision.gameObject.name.Equals("Floor"))
+        {
+            soundKeyFall.Play();
         }
     }
 }

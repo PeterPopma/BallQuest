@@ -14,8 +14,13 @@ public class Room2 : MonoBehaviour
         numBottlesFallen++;
         if (numBottlesFallen == 15)
         {
-            gate.SetActive(false);
+            OpenGate();
         }
     }
-    
+
+    public void OpenGate()
+    {
+        gate.SetActive(false);
+        Game.Instance.PlayOpenGateSound();
+    }
 }

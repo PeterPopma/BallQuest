@@ -9,24 +9,32 @@ public class GameTimer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textGameTime;
     private float startTime;
     private float timePassed;
+    private bool isEnabled;
 
-    private void Start()
-    {
-        InitTimer();
-    }
+    public bool IsEnabled { get => isEnabled; set => isEnabled = value; }
 
     public void InitTimer()
     {
         startTime = Time.time;
+        isEnabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timePassed = Time.time - startTime;
-        if (timePassed >= GAME_DURATION)
+        if (isEnabled)
         {
+            timePassed = Time.time - startTime;
+            if (timePassed >= GAME_DURATION)
+            {
+                Game.Instance.SetGameState(Game.GameState_.GameOver);
+            }
+            textGameTime.text = (GAME_DURATION - timePassed).ToString("0");
         }
-        textGameTime.text = (GAME_DURATION - timePassed).ToString("0");
+    }
+
+    public string TimeLeft()
+    {
+        return (Time.time - startTime).ToString("0");
     }
 }
